@@ -34,7 +34,7 @@ def merge(stripped_string, answers):
     while index < length:        
         if string_to_return[index] == "{":
             close = index + 1
-            string_to_return = string_to_return[0:index+1] + answers[occurence] + string_to_return[close:]
+            string_to_return = string_to_return[0:index] + answers[occurence] + string_to_return[close+1:]
             occurence+=1
         index+=1
     return string_to_return
@@ -68,17 +68,18 @@ def replaceinstring(madLib, locations):
     return madLib
 
 def savetofile(filetoread, madLib):
-    newfile = filetoread[0:-4] + "_complete.txt"
+    newfile = filetoread[0:-4] + "_output.txt"
     with open(newfile, "w") as file:
         file.write(madLib)
     return newfile
 
-nameoffile = "short_example_template.txt"
-madlib_string = read_template(nameoffile)
-parsed, parts = parse_template(madlib_string)
-answers = user_inputs(parts)
-filled_string = merge(parsed, answers)
-savetofile(nameoffile, filled_string)
+if __name__ == "__main__":
+    nameoffile = "short_example_template.txt"
+    madlib_string = read_template(nameoffile)
+    parsed, parts = parse_template(madlib_string)
+    answers = user_inputs(parts)
+    filled_string = merge(parsed, answers)
+    savetofile(nameoffile, filled_string)
 
 
 
